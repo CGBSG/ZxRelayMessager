@@ -1,0 +1,32 @@
+# Prevent any uploaded file from being executed as a script.
+# Everything in this folder (and voice/avatars) is served as a forced download.
+
+# Disable PHP execution entirely for this directory (works on most Apache setups with mod_php)
+<IfModule mod_php.c>
+    php_flag engine off
+</IfModule>
+<IfModule mod_php7.c>
+    php_flag engine off
+</IfModule>
+<IfModule mod_php8.c>
+    php_flag engine off
+</IfModule>
+
+# Belt-and-suspenders: strip any handler/MIME mapping for script-like extensions
+# and force them to be treated as plain binary octet-stream downloads.
+<FilesMatch "\.(php|php3|php4|php5|php7|phtml|phar|pht|cgi|pl|py|sh|exe|asp|aspx|jsp|htaccess|htm|html|svg)$">
+    ForceType application/octet-stream
+    Header set Content-Disposition attachment
+    RemoveHandler .php .php3 .php4 .php5 .php7 .phtml .phar .pht .cgi .pl .py .sh .asp .aspx .jsp
+</FilesMatch>
+
+# For everything else uploaded (images, audio, generic files) also force download
+# rather than inline rendering, since these are user-controlled filenames/content.
+<FilesMatch "\.(?!jpg$|jpeg$|png$|webp$|gif$|bmp$|mp3$|ogg$|oga$|wav$|webm$|m4a$)([a-zA-Z0-9]+)$">
+    ForceType application/octet-stream
+    Header set Content-Disposition attachment
+</FilesMatch>
+
+Options -ExecCGI -Indexes
+AddHandler cgi-script .php .pl .py .cgi .sh .phtml .phar .pht
+Options -Indexes
