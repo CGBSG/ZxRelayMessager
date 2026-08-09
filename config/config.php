@@ -2,17 +2,13 @@
 // ===== ZxRelay Configuration =====
 // Fill these in with your real hosting/database details.
 
-define('DB_HOST', 'sql212.ezyro.com');
-define('DB_NAME', 'ezyro_42330729_zxrmsger');
-define('DB_USER', 'ezyro_42330729');
-define('DB_PASS', '65c2582');
+define('DB_HOST', 'localhost');
+define('DB_NAME', '');
+define('DB_USER', '');
+define('DB_PASS', '');
 
 // Base URL of the site (no trailing slash), e.g. https://example.com/zxrelay
-define('SITE_URL', 'http://czrat.liveblog365.com/ZxRelay');
-
-// One-time secret key used by /setup_owner.php to promote an account to Owner.
-// Change this to your own random string before uploading.
-define('SETUP_KEY', 'change-this-secret-key-123');
+define('SITE_URL', 'https://zxrelay.zya.me/');
 
 // Max upload size in bytes (default 50MB)
 define('MAX_UPLOAD_SIZE', 50 * 1024 * 1024);
